@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SVVAP — Spatial Visual Verification & Analysis Platform</title>
+  <meta name="description" content="SVVAP — Advanced audio-visual deepfake detection using geometric gaze physics and binocular vergence analysis."/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
+
+  <!-- Plotly -->
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       LANDING PAGE
+  ════════════════════════════════════════════════════════ -->
+  <div id="landingPage" class="landing-page">
+
+    <!-- Ambient FX -->
+    <div class="land-grid"></div>
+    <div class="land-vignette"></div>
+    <div class="land-scanlines"></div>
+
+    <!-- Floating orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <!-- Header strip -->
+    <nav class="land-nav">
+      <div class="land-nav-brand">
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
+          <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" stroke="#00f5d4" stroke-width="1.5" fill="none" class="hex-spin"/>
+          <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" stroke="#00f5d4" stroke-width="0.8" fill="none" opacity="0.35"/>
+          <circle cx="18" cy="18" r="4" fill="#00f5d4" class="core-pulse"/>
+        </svg>
+        <span class="land-nav-name">SVVAP</span>
+      </div>
+      <div class="land-nav-pill">
+        <span class="land-nav-dot"></span>
+        SYSTEM ONLINE
+      </div>
+    </nav>
+
+    <!-- Hero Content -->
+    <main class="land-hero">
+
+      <!-- Eyebrow tag -->
+      <div class="land-eyebrow">
+        <span class="eyebrow-bar"></span>
+        SPATIAL VISUAL VERIFICATION &amp; ANALYSIS PLATFORM
+        <span class="eyebrow-bar"></span>
+      </div>
+
+      <!-- Main headline -->
+      <h1 class="land-headline">
+        <span class="headline-line land-reveal" style="--ri:0">DETECT</span>
+        <span class="headline-line land-reveal" style="--ri:1">
+          <span class="hl-accent">DEEPFAKES</span>
+        </span>
+        <span class="headline-line land-reveal" style="--ri:2">WITH PHYSICS</span>
+      </h1>
+
+      <!-- Subheading -->
+      <p class="land-sub land-reveal" style="--ri:3">
+        SVVAP uses binocular vergence geometry and 3D gaze ray convergence to expose 
+        synthetic media that violates the laws of human visual physics — 
+        where algorithms fail, physics doesn't lie.
+      </p>
+
+      <!-- Feature pills -->
+      <div class="land-pills land-reveal" style="--ri:4">
+        <span class="land-pill">◆ 3D Gaze Vector Analysis</span>
+        <span class="land-pill">◆ Binocular Vergence Physics</span>
+        <span class="land-pill">◆ Geometric Attestation</span>
+        <span class="land-pill">◆ Real-Time Classification</span>
+      </div>
+
+      <!-- CTA -->
+      <button class="land-cta land-reveal" id="landingCTA" style="--ri:5">
+        <span class="land-cta-inner">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <polygon points="4,2 16,9 4,16" fill="currentColor"/>
+          </svg>
+          ENTER PLATFORM
+        </span>
+        <div class="land-cta-bg"></div>
+      </button>
+
+      <!-- Tech spec strip -->
+      <div class="land-specs land-reveal" style="--ri:6">
+        <div class="land-spec">
+          <span class="ls-val">0.5</span>
+          <span class="ls-lbl">ANOMALY THRESHOLD</span>
+        </div>
+        <div class="land-spec-div"></div>
+        <div class="land-spec">
+          <span class="ls-val">3D</span>
+          <span class="ls-lbl">VECTOR SPACE</span>
+        </div>
+        <div class="land-spec-div"></div>
+        <div class="land-spec">
+          <span class="ls-val">R⁶</span>
+          <span class="ls-lbl">INPUT DIMENSIONS</span>
+        </div>
+        <div class="land-spec-div"></div>
+        <div class="land-spec">
+          <span class="ls-val">&lt;3s</span>
+          <span class="ls-lbl">ANALYSIS TIME</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Corner decorations -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- Bottom ticker -->
+    <div class="land-ticker">
+      <div class="land-ticker-track">
+        <span>BINOCULAR VERGENCE PHYSICS ENGINE ACTIVE</span>
+        <span class="tick-sep">◆</span>
+        <span>GAZE RAY CONVERGENCE THRESHOLD: 0.5 UNITS</span>
+        <span class="tick-sep">◆</span>
+        <span>3D VECTOR CROSS-PRODUCT ANALYSIS ENABLED</span>
+        <span class="tick-sep">◆</span>
+        <span>GEOMETRIC ATTESTATION MODULE LOADED</span>
+        <span class="tick-sep">◆</span>
+        <span>SVVAP // SPATIAL VISUAL VERIFICATION &amp; ANALYSIS PLATFORM</span>
+        <span class="tick-sep">◆</span>
+        <span>BINOCULAR VERGENCE PHYSICS ENGINE ACTIVE</span>
+        <span class="tick-sep">◆</span>
+        <span>GAZE RAY CONVERGENCE THRESHOLD: 0.5 UNITS</span>
+        <span class="tick-sep">◆</span>
+        <span>3D VECTOR CROSS-PRODUCT ANALYSIS ENABLED</span>
+        <span class="tick-sep">◆</span>
+        <span>GEOMETRIC ATTESTATION MODULE LOADED</span>
+        <span class="tick-sep">◆</span>
+        <span>SVVAP // SPATIAL VISUAL VERIFICATION &amp; ANALYSIS PLATFORM</span>
+        <span class="tick-sep">◆</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       DASHBOARD PAGE
+  ════════════════════════════════════════════════════════ -->
+  <div id="dashboardPage" class="dashboard-page" style="display:none">
+
+    <!-- Ambient background grid -->
+    <div class="bg-grid"></div>
+    <div class="bg-vignette"></div>
+    <div class="scanlines"></div>
+
+    <!-- ══════ HEADER ══════ -->
+    <header class="site-header">
+      <div class="header-left">
+        <button class="btn-back" id="btnBack" title="Back to home">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <polyline points="9,2 4,7 9,12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="logo-mark">
+          <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+            <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" stroke="#00f5d4" stroke-width="1.5" fill="none" class="hex-spin"/>
+            <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" stroke="#00f5d4" stroke-width="0.8" fill="none" opacity="0.4"/>
+            <circle cx="18" cy="18" r="4" fill="#00f5d4" class="core-pulse"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-main">SVV<span class="logo-accent">AP</span></span>
+          <span class="logo-sub">GEOMETRIC GAZE ANALYSIS ENGINE // v2.1.0</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="status-pill" id="systemStatus">
+          <span class="status-dot"></span>
+          <span class="status-label">SYSTEM ONLINE</span>
+        </div>
+        <div class="header-stat">
+          <span class="stat-val" id="analysisCount">0</span>
+          <span class="stat-lbl">ANALYSES</span>
+        </div>
+        <div class="header-stat">
+          <span class="stat-val" id="detectRate">—</span>
+          <span class="stat-lbl">DETECT RATE</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══════ TICKER ══════ -->
+    <div class="ticker-bar">
+      <div class="ticker-track">
+        <span>BINOCULAR VERGENCE PHYSICS ENGINE ACTIVE</span>
+        <span class="tick-sep">◆</span>
+        <span>GAZE RAY CONVERGENCE THRESHOLD: 0.5 UNITS</span>
+        <span class="tick-sep">◆</span>
+        <span>3D VECTOR CROSS-PRODUCT ANALYSIS ENABLED</span>
+        <span class="tick-sep">◆</span>
+        <span>GEOMETRIC ATTESTATION MODULE LOADED</span>
+        <span class="tick-sep">◆</span>
+        <span>SVVAP // SPATIAL VISUAL VERIFICATION &amp; ANALYSIS PLATFORM</span>
+        <span class="tick-sep">◆</span>
+        <span>BINOCULAR VERGENCE PHYSICS ENGINE ACTIVE</span>
+        <span class="tick-sep">◆</span>
+        <span>GAZE RAY CONVERGENCE THRESHOLD: 0.5 UNITS</span>
+        <span class="tick-sep">◆</span>
+        <span>3D VECTOR CROSS-PRODUCT ANALYSIS ENABLED</span>
+        <span class="tick-sep">◆</span>
+        <span>GEOMETRIC ATTESTATION MODULE LOADED</span>
+        <span class="tick-sep">◆</span>
+        <span>SVVAP // SPATIAL VISUAL VERIFICATION &amp; ANALYSIS PLATFORM</span>
+        <span class="tick-sep">◆</span>
+      </div>
+    </div>
+
+    <!-- ══════ MAIN DASHBOARD GRID ══════ -->
+    <main class="dashboard">
+
+      <!-- ── LEFT COLUMN: INPUT ── -->
+      <section class="panel panel-input">
+        <div class="panel-header">
+          <span class="panel-tag">01</span>
+          <h2 class="panel-title">VIDEO INPUT</h2>
+          <div class="panel-line"></div>
+        </div>
+
+        <!-- Drop Zone -->
+        <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload video file for analysis">
+          <div class="drop-zone-inner">
+            <div class="drop-icon">
+              <svg width="48" height="48" viewBox="0 0 52 52" fill="none">
+                <rect x="6" y="14" width="40" height="28" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                <polygon points="20,22 20,34 34,28" fill="currentColor" opacity="0.7"/>
+                <line x1="26" y1="2" x2="26" y2="14" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,2"/>
+                <polyline points="20,7 26,2 32,7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p class="drop-title">DRAG &amp; DROP VIDEO</p>
+            <p class="drop-sub">or click to browse</p>
+            <p class="drop-format">MP4 · MOV · AVI · WEBM</p>
+            <input type="file" id="fileInput" accept="video/*" hidden aria-label="Video file input"/>
+          </div>
+          <div class="drop-border-anim"></div>
+        </div>
+
+        <!-- Video Preview -->
+        <div class="video-preview-wrap" id="videoPreviewWrap">
+          <div class="vp-header">
+            <span class="vp-label">PREVIEW</span>
+            <span class="vp-filename" id="vp-filename">—</span>
+            <span class="vp-size" id="vp-size"></span>
+          </div>
+          <div class="vp-player-wrap">
+            <video id="videoPlayer" controls playsinline aria-label="Uploaded video preview"></video>
+            <div class="video-scan-overlay" id="videoScanOverlay">
+              <div class="scan-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- File Metadata -->
+        <div class="file-meta" id="fileMeta">
+          <div class="meta-row">
+            <span class="meta-key">FILE</span>
+            <span class="meta-val" id="meta-name">No file loaded</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">SIZE</span>
+            <span class="meta-val" id="meta-size">—</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">TYPE</span>
+            <span class="meta-val" id="meta-type">—</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">STATUS</span>
+            <span class="meta-val meta-status" id="meta-status">AWAITING INPUT</span>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <button class="btn-analyze" id="btnAnalyze" disabled
+          aria-label="Analyze video for deepfake detection">
+          <span class="btn-analyze-inner">
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M9 5v4l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="9" cy="9" r="1.5" fill="currentColor"/>
+            </svg>
+            <span class="btn-text">ANALYZE VIDEO</span>
+          </span>
+          <div class="btn-scan"></div>
+        </button>
+
+        <button class="btn-demo" id="btnDemo">
+          ⚡ RUN WITH MOCK DATA (DEMO)
+        </button>
+      </section>
+
+      <!-- ── RIGHT COLUMN: RESULTS ── -->
+      <section class="panel panel-results">
+        <div class="panel-header">
+          <span class="panel-tag">02</span>
+          <h2 class="panel-title">ANALYSIS RESULTS</h2>
+          <div class="panel-line"></div>
+        </div>
+
+        <!-- Idle State -->
+        <div class="results-idle" id="resultsIdle">
+          <div class="idle-hexgrid">
+            <div class="idle-hex" style="--d:0s"></div>
+            <div class="idle-hex" style="--d:.1s"></div>
+            <div class="idle-hex" style="--d:.2s"></div>
+            <div class="idle-hex" style="--d:.3s"></div>
+            <div class="idle-hex" style="--d:.4s"></div>
+            <div class="idle-hex" style="--d:.5s"></div>
+            <div class="idle-hex" style="--d:.6s"></div>
+          </div>
+          <p class="idle-msg">AWAITING VIDEO INPUT</p>
+          <p class="idle-sub">Upload a video file and click Analyze to begin geometric gaze analysis</p>
+        </div>
+
+        <!-- Loading State -->
+        <div class="results-loading" id="resultsLoading" style="display:none">
+          <div class="scanner-ring">
+            <div class="ring ring1"></div>
+            <div class="ring ring2"></div>
+            <div class="ring ring3"></div>
+            <div class="ring-core">
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+                <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" stroke="#00f5d4" stroke-width="1.5" fill="none"/>
+                <circle cx="14" cy="14" r="3" fill="#00f5d4"/>
+              </svg>
+            </div>
+          </div>
+          <p class="loading-title">ANALYZING GAZE GEOMETRY</p>
+          <div class="loading-steps">
+            <div class="lstep" id="lstep1"><span class="lstep-dot"></span><span>Extracting facial landmarks</span></div>
+            <div class="lstep" id="lstep2"><span class="lstep-dot"></span><span>Computing 3D pupil positions</span></div>
+            <div class="lstep" id="lstep3"><span class="lstep-dot"></span><span>Solving gaze ray convergence</span></div>
+            <div class="lstep" id="lstep4"><span class="lstep-dot"></span><span>Geometric attestation check</span></div>
+            <div class="lstep" id="lstep5"><span class="lstep-dot"></span><span>Classifying result</span></div>
+          </div>
+        </div>
+
+        <!-- Results State -->
+        <div class="results-content" id="resultsContent" style="display:none">
+
+          <!-- Verdict Badge -->
+          <div class="verdict-badge" id="verdictBadge">
+            <div class="verdict-glow" id="verdictGlow"></div>
+            <div class="verdict-icon" id="verdictIcon"></div>
+            <div class="verdict-text" id="verdictText">—</div>
+            <div class="verdict-sub" id="verdictSub">—</div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-card-label">GAZE DISTANCE</span>
+              <span class="stat-card-value" id="statDistance">—</span>
+              <span class="stat-card-unit">units</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-label">LOGICAL GAZE</span>
+              <span class="stat-card-value" id="statLogical">—</span>
+              <span class="stat-card-unit">boolean</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-label">THRESHOLD</span>
+              <span class="stat-card-value">0.500</span>
+              <span class="stat-card-unit">units</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-label">VERGENCE Z</span>
+              <span class="stat-card-value" id="statVergZ">—</span>
+              <span class="stat-card-unit">depth</span>
+            </div>
+          </div>
+
+          <!-- ── 3D Visualizer (FIXED LAYOUT) ── -->
+          <div class="visualizer-section">
+            <div class="vis-header">
+              <div class="vis-header-left">
+                <span class="vis-indicator"></span>
+                <span class="vis-title">3D GAZE VECTOR SPACE</span>
+              </div>
+              <button class="btn-expand" id="btnExpand" title="Expand 3D visualizer to full screen" aria-label="Expand 3D visualizer">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                  <polyline points="1,5 1,1 5,1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="9,1 13,1 13,5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="13,9 13,13 9,13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="5,13 1,13 1,9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                EXPAND
+              </button>
+            </div>
+            <div class="plotly-container" id="gazeVisualizer"></div>
+          </div>
+
+          <!-- Raw Coordinates -->
+          <div class="coords-section">
+            <div class="coords-header">
+              <span>RAW COORDINATES</span>
+              <span class="coords-header-sub">INPUT VECTORS</span>
+            </div>
+            <div class="coords-grid" id="coordsGrid"></div>
+          </div>
+
+        </div><!-- /results-content -->
+      </section>
+    </main>
+
+    <!-- ══════ FOOTER ══════ -->
+    <footer class="site-footer">
+      <span class="footer-brand">SVVAP</span>
+      <span class="footer-sep">//</span>
+      <span class="footer-text">Spatial Visual Verification &amp; Analysis Platform</span>
+      <span class="footer-sep">—</span>
+      <span class="footer-text">Geometric Gaze Physics Engine v2.1.0</span>
+    </footer>
+
+  </div><!-- /dashboardPage -->
+
+
+  <!-- ═══════════════════ EXPANDED MODAL ═══════════════════ -->
+  <div class="modal-overlay" id="modalOverlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <span class="modal-indicator"></span>
+          <span class="modal-title" id="modalTitle">3D GAZE VECTOR SPACE — FULL VIEW</span>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Close expanded visualization">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          CLOSE
+        </button>
+      </div>
+      <div class="plotly-modal-container" id="gazeVisualizerExpanded"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+import os
+import random
+import numpy as np
+import librosa
+import cv2
+import tensorflow as tf
+from tensorflow.keras import layers, models
+from sklearn.preprocessing import StandardScaler
+import joblib
+import warnings
+
+warnings.filterwarnings("ignore", category=UserWarning)
+
+# ─── Configuration ────────────────────────────────────────────────────────────
+FPS           = 30
+SR            = 22050
+HOP_LENGTH    = int(SR / FPS)
+N_MFCC        = 13
+MOUTH_SIZE    = (64, 64)
+INPUT_DIM     = (64 * 64) + N_MFCC + N_MFCC
+
+MODEL_PATH    = "deepfake_model.h5"
+SCALER_PATH   = "deepfake_scaler.pkl"
+VALID_EXTS    = {".mp4", ".avi", ".mov", ".mkv"}
+
+# Harder settings to prevent the "always REAL" bug
+SHIFT_MIN_SEC = 0.06 
+SHIFT_MAX_SEC = 0.15 
+
+# ─── Feature Extraction ───────────────────────────────────────────────────────
+
+def extract_audio_features(video_path):
+    try:
+        y, sr = librosa.load(video_path, sr=SR, mono=True)
+        mfccs  = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=N_MFCC, hop_length=HOP_LENGTH)
+        deltas = librosa.feature.delta(mfccs)
+        return np.vstack([mfccs, deltas]).T
+    except Exception as e:
+        print(f"Audio Error: {e}")
+        return None
+
+def _get_mouth_roi(frame):
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.2, 5, minSize=(80, 80))
+    if len(faces) == 0: return None
+    x, y, fw, fh = max(faces, key=lambda r: r[2] * r[3])
+    mouth_roi = gray[y + int(fh * 0.6):y + fh, x:x + fw]
+    return cv2.resize(mouth_roi, MOUTH_SIZE) if mouth_roi.size > 0 else None
+
+def extract_mouth_frames(video_path):
+    cap = cv2.VideoCapture(video_path)
+    frames = []
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret: break
+        roi = _get_mouth_roi(frame)
+        frames.append(roi.astype(np.float32) / 255.0 if roi is not None else np.zeros(MOUTH_SIZE))
+    cap.release()
+    return np.array(frames) if frames else None
+
+def build_samples(mouth, audio):
+    n = min(len(mouth), len(audio))
+    return np.concatenate([mouth[:n].reshape(n, -1), audio[:n]], axis=1)
+
+# ─── Model & Training ─────────────────────────────────────────────────────────
+
+def build_model():
+    model = models.Sequential([
+        layers.Input(shape=(INPUT_DIM,)),
+        layers.Dense(512, activation="relu"),
+        layers.BatchNormalization(), # Prevents bias
+        layers.Dropout(0.5),
+        layers.Dense(128, activation="relu"),
+        layers.BatchNormalization(),
+        layers.Dropout(0.4),
+        layers.Dense(1, activation="sigmoid")
+    ])
+    model.compile(optimizer=tf.keras.optimizers.Adam(0.0005), loss="binary_crossentropy", metrics=["accuracy"])
+    return model
+
+def train_on_seed_data(folder):
+    paths = [os.path.join(folder, f) for f in os.listdir(folder)
+             if os.path.splitext(f)[1].lower() in VALID_EXTS]
+    if not paths:
+        raise FileNotFoundError(f"No video files found in '{folder}'")
+
+    X_list, y_list = [], []
+    print("Processing videos...")
+
+    for p in paths:
+        mouth = extract_mouth_frames(p)
+        audio = extract_audio_features(p)
+        if mouth is None or audio is None:
+            print(f"Skipping {os.path.basename(p)}: failed feature extraction")
+            continue
+
+        real = build_samples(mouth, audio)
+        X_list.append(real + np.random.normal(0, 0.005, real.shape))
+        y_list.append(np.ones(len(real)))
+
+        shift_frames = int(random.uniform(SHIFT_MIN_SEC, SHIFT_MAX_SEC) * FPS)
+        audio_shifted = np.roll(audio, shift_frames, axis=0)
+        X_list.append(build_samples(mouth, audio_shifted))
+        y_list.append(np.zeros(len(real)))
+
+    if not X_list:
+        raise RuntimeError("No valid training samples were generated.")
+
+    X = np.concatenate(X_list)
+    y = np.concatenate(y_list)
+
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    joblib.dump(scaler, SCALER_PATH)
+
+    model = build_model()
+    model.fit(X_scaled, y, epochs=50, batch_size=64, validation_split=0.2, shuffle=True)
+    model.save(MODEL_PATH)
+
+def analyze_single_file(path):
+    model = models.load_model(MODEL_PATH)
+    scaler = joblib.load(SCALER_PATH)
+    m, a = extract_mouth_frames(path), extract_audio_features(path)
+    if m is None or a is None:
+        print("Failed to process.")
+        return None
+
+    X_scaled = scaler.transform(build_samples(m, a))
+    score = np.mean(model.predict(X_scaled, verbose=0))
+    print(f"File: {os.path.basename(path)} | Score: {score:.4f} | {'REAL' if score > 0.5 else 'FAKE'}")
+    return float(score)
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) == 3:
+        if sys.argv[1] == "train":
+            train_on_seed_data(sys.argv[2])
+        elif sys.argv[1] == "analyze":
+            analyze_single_file(sys.argv[2])
+        else:
+            print("Unknown command. Use 'train' or 'analyze'.")
+    else:
+        print("Usage: python audio train <video_folder>")
+        print("       python audio analyze <video_file>")
